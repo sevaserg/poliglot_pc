@@ -89,6 +89,7 @@ class Window(QWidget):
             self.lchoice.append(QRadioButton(self))
             self.lchoice[i].setText(info[i])
             self.langChoiceLayout.addWidget(self.lchoice[i])
+            self.lchoice[i].clicked.connect(self.lchoice_evt)
         self.lchoice[2].setChecked(True)
         self.scroller = QScrollArea(self)
         self.lvbox = QVBoxLayout(self)
@@ -147,6 +148,13 @@ class Window(QWidget):
         self.getList()
         self.show()
         
+    def lchoice_evt(self):
+        if self.getList():
+            while self.randomizeWord() == "":
+                pass
+        else:
+            self.question.setText("Выберите категории!")
+
     def chall(self):
         for chbox in self.filescheck:
             if (self.checkall.text() == "Выделить все"):
@@ -236,12 +244,13 @@ class Window(QWidget):
             self.voc = self.voc[:-1]
             while self.randomizeWord() == "":
                 pass
+            return True
         else:
             self.submit.hide()
             self.question.setText("Выберите категории!")
             for i in range (4):
                 self.tOps[i].setText("")
-    
+            return False
     def subm(self):
         ans = ""
         if self.inputMethod == 1:
