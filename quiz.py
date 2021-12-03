@@ -180,14 +180,14 @@ class Window(QWidget):
             for i in range(0,4):
                 self.tOps[i].setChecked(False)
             self.wrd = str(self.voc.split("\n")[random.randint(0, self.voc.count("\n"))])
-            if random.randint(0,100) > 50 or self.lchoice[0].isChecked():
+            if ( random.randint(0,100) > 50 and self.lchoice[2].isChecked() ) or self.lchoice[0].isChecked():
                 self.lang = "ru"
                 temp = str(self.wrd.split("=")[1])
                 data = ""
                 data += temp.split("/")[random.randint(0, temp.count("/"))]
                 self.question.setText(data)
             else:
-                if random.randint(0,100) <= 50 or self.lchoice[1].isChecked():
+                if (random.randint(0,100) <= 50 and self.lchoice[2].isChecked() ) or self.lchoice[1].isChecked():
                     self.lang = "en"
                     temp = str(self.wrd.split("=")[0])
                     data = ""
